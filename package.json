@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "next lint --fix",
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
     "format": "prettier --write \"pages/**/*.js\" \"components/**/*.jsx\" \"styles/**/*.css\"",
     "prepare": "husky install"
   },
