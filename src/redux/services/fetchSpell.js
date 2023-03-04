@@ -9,9 +9,6 @@ export const spellApi = createApi({
     fetchAllSpells: builder.query({
       query: level => '/spells' + (level !== 'All' ? `?level=${level}` : ''),
     }),
-    fetchAllSpellsWithLevel: builder.query({
-      query: level => `/spells?level=${level}`,
-    }),
     fetchSpellByIndex: builder.query({
       query: index => '/spells/' + index,
     }),

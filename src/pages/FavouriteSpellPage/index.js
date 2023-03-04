@@ -1,3 +1,3 @@
-import FavoritesSpellPage from './FavouriteSpellPage';
+import FavoriteSpellPage from './FavouriteSpellPage';
 
-export default FavoritesSpellPage;
+export default FavoriteSpellPage;

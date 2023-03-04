@@ -6,8 +6,10 @@ import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { spellApi } from './services/fetchSpell';
+import favoriteReducer from './services/addToFavorite';
 
 const reducers = combineReducers({
+  favorites: favoriteReducer,
   [spellApi.reducerPath]: spellApi.reducer,
 });
 

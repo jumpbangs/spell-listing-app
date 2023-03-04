@@ -2,9 +2,8 @@ import * as React from 'react';
 import { Box, Menu, AppBar, Button, Toolbar, MenuItem, Container, IconButton, Typography } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import { ROUTE_HOME, ROUTE_FAVORITE } from 'common/Routes';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
-
-const pages = ['Favorites'];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,7 +24,7 @@ const NavBar = () => {
           <AutoFixHighIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             noWrap
-            href="/"
+            href={ROUTE_HOME}
             component="a"
             variant="h6"
             sx={{
@@ -71,18 +70,18 @@ const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Button href={ROUTE_FAVORITE}>
+                  <Typography textAlign="center">Favorite</Typography>
+                </Button>
+              </MenuItem>
             </Menu>
           </Box>
 
           {/* Logo Responsive */}
           <AutoFixHighIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
-            href="/"
+            href={ROUTE_HOME}
             noWrap
             variant="h5"
             component="a"
@@ -105,11 +104,9 @@ const NavBar = () => {
 
           {/* Right Menu Responsive */}
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(page => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-              </Button>
-            ))}
+            <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }} href={ROUTE_FAVORITE}>
+              Favorites
+            </Button>
           </Box>
         </Toolbar>
       </Container>

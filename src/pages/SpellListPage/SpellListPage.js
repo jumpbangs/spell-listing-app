@@ -11,10 +11,10 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import { Levels } from '../../common/Levels';
-import Selector from '../../components/Selector';
+import { Levels } from 'common/Levels';
+import Selector from 'components/Selector';
 import SpellDetail from './components/SpellDetails';
-import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from '../../redux/services/fetchSpell';
+import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from 'redux/services/fetchSpell';
 
 const SpellListPage = () => {
   const [selectLevel, setSelectedLevel] = React.useState('All');
@@ -40,7 +40,7 @@ const SpellListPage = () => {
     <Container fixed>
       <h1>Spell Listings</h1>
       <Grid container>
-        <Grid container xs={12} md={5}>
+        <Grid container item xs={12} md={5}>
           <Grid item md={12} xs={12}>
             <Selector title="Levels" selectValue={selectLevel} values={Levels} selectedValue={setSelectedLevel} />
           </Grid>
@@ -53,18 +53,18 @@ const SpellListPage = () => {
               </Container>
             ) : (
               <Virtuoso
-                style={{ height: '400px', backgroundColor: 'yellow', marginLeft: 2 }}
+                style={{ height: '700px', backgroundColor: 'yellow', marginLeft: 2, flexGrow: 1 }}
                 totalCount={spellData?.count}
                 itemContent={index => renderRow(spellData?.results, index)}
               />
             )}
           </Grid>
         </Grid>
-        <Grid xs={12} md={7}>
+        <Grid item xs={12} md={7}>
           {isFetching ? (
-            <Container maxWidth="xl">
-              <Skeleton variant="rectangular" width={360} height={260} />
-            </Container>
+            <Skeleton variant="rectangular">
+              <SpellDetail details={spellDetails} isFetching={true} />
+            </Skeleton>
           ) : (
             <SpellDetail details={spellDetails} />
           )}
