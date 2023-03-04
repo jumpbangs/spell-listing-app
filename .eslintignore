@@ -1,0 +1,9 @@
+src/setupTests.ts
+src/reportWebVitals.ts
+node_modules/
+build/
+public/
+
+src/models
+.eslintrc.js
+lint-staged.js
