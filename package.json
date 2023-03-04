@@ -42,10 +42,13 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,json,css,scss,md}": [
-      "prettier . --write",
-      "git add"
-    ]
+    "*.{js,jsx}": [
+      "eslint .",
+      "eslint . --fix",
+      "prettier . --write --ignore-unknown"
+    ],
+    "*.{js,css,md}": "prettier --write",
+    "*.js": "eslint --cache --fix"
   },
   "eslintConfig": {
     "extends": [
