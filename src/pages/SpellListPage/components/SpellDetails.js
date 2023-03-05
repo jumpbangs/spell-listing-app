@@ -41,12 +41,25 @@ const SpellDetail = ({ details }) => {
     dispatch(removeFromFavorite(spellToRemove));
   };
 
+  const contentStyle = {
+    border: 1,
+    borderRadius: 2,
+    borderColor: '#B8B5B2',
+    backgroundColor: '#EFECE7',
+    boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
+  };
+
   const renderDescriptionAccordion = values => {
     return (
       <div className="mt-2">
         {values.map((item, index) => {
           return (
-            <Accordion key={index} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
+            <Accordion
+              key={index}
+              sx={contentStyle}
+              expanded={expanded === `panel${index}`}
+              onChange={handleChange(`panel${index}`)}
+            >
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                 <Typography>{`Description ${index} `}</Typography>
               </AccordionSummary>
@@ -63,7 +76,7 @@ const SpellDetail = ({ details }) => {
   return (
     <>
       {spellItem?.name && (
-        <Card>
+        <Card sx={contentStyle}>
           <CardContent>
             <Typography>{`Spell name: ${spellItem.name}`}</Typography>
             <Typography>{`Spell Level:${spellItem.level}`}</Typography>
@@ -77,7 +90,7 @@ const SpellDetail = ({ details }) => {
             {favoriteSpells.find(spell => spell.index === spellItem.index) ? (
               <>
                 <IconButton onClick={() => removeSpell(spellItem)}>
-                  <FavoriteIcon />
+                  <FavoriteIcon sx={{ color: 'red' }} />
                 </IconButton>
               </>
             ) : (

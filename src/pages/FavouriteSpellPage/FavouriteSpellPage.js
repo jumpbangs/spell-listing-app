@@ -1,27 +1,35 @@
 import React from 'react';
-import { Container, Divider } from '@mui/material';
+import { Container, Divider, Box } from '@mui/material';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SpellDetail from 'pages/SpellListPage/components/SpellDetails';
 
 const FavoriteSpellPage = () => {
   const favoriteSpells = useSelector(state => state.favorites.savedSpells);
 
   return (
-    <div>
-      <Container fixed>
-        <h1>Favorite Spell Page</h1>
+    <Container fixed>
+      <h1>Favorite Spell Page</h1>
 
-        {favoriteSpells.map((spell, index) => {
+      {favoriteSpells.length > 0 ? (
+        favoriteSpells.map((spell, index) => {
           return (
-            <>
-              <SpellDetail details={spell} key={index} />
-              {index >= 0 && <Divider mb={2} />}
-            </>
+            <React.Fragment key={index}>
+              <Box mt={2} sx={{ borderRadius: 2 }}>
+                <SpellDetail details={spell} />
+                {index >= 0 && <Divider mb={2} />}
+              </Box>
+            </React.Fragment>
           );
-        })}
-      </Container>
-    </div>
+        })
+      ) : (
+        <Box sx={{ height: '60vh' }}>
+          <div className="center-content">
+            <h2>No saved favorite list 😔</h2>
+          </div>
+        </Box>
+      )}
+    </Container>
   );
 };
 

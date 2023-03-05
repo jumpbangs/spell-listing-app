@@ -14,9 +14,15 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <p>We are sorry — something went wrong.</p>
-          <p>Our team has been notified.</p>
+        <div className="center-content">
+          <div className="error-box">
+            <p>We are sorry — something went wrong.</p>
+            <p>Our team has been notified.</p>
+
+            <p>
+              Click here to return <a href="/">Home</a>
+            </p>
+          </div>
         </div>
       );
     }
