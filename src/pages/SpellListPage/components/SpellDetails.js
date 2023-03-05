@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Card,
   CardContent,
@@ -34,10 +36,28 @@ const SpellDetail = ({ details }) => {
 
   const saveSpell = spellToSave => {
     dispatch(addToFavorite(spellToSave));
+    toast.success('Added to favorites ❤️', {
+      position: 'bottom-right',
+      autoClose: 500,
+      draggable: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      progress: undefined,
+      hideProgressBar: false,
+    });
   };
 
   const removeSpell = spellToRemove => {
     dispatch(removeFromFavorite(spellToRemove));
+    toast.success('Removed to from favorites 💔', {
+      position: 'bottom-right',
+      autoClose: 500,
+      draggable: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      progress: undefined,
+      hideProgressBar: false,
+    });
   };
 
   const contentStyle = {
