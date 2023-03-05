@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InLineIconText = ({ Icon, Text }) => {
+import { Typography } from '@mui/material';
+
+const InLineIconText = ({ Icon, Text, Title }) => {
   return (
     <div
       style={{
         display: 'flex',
-        alignItems: 'center',
         flexWrap: 'wrap',
+        alignItems: 'center',
       }}
     >
       {Icon}
-      <span>{Text}</span>
+      <div className="title-text">
+        <span className="title">{Title}</span>
+        <Typography>{Text}</Typography>
+      </div>
     </div>
   );
 };
@@ -19,6 +24,7 @@ const InLineIconText = ({ Icon, Text }) => {
 InLineIconText.propTypes = {
   Icon: PropTypes.object,
   Text: PropTypes.string,
+  Title: PropTypes.string,
 };
 
 export default InLineIconText;

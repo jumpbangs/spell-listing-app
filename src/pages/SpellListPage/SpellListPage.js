@@ -12,24 +12,30 @@ import {
 } from '@mui/material';
 
 import { Levels } from 'common/Levels';
+import { useSelector } from 'react-redux';
 import Selector from 'components/Selector';
 import SpellDetail from './components/SpellDetails';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from 'redux/services/fetchSpell';
 
 const SpellListPage = () => {
-  const [selectLevel, setSelectedLevel] = React.useState('All');
   const [selectedSkill, setSelectedSkill] = React.useState('');
+  const [selectLevel, setSelectedLevel] = React.useState('All');
+  const favoriteSpells = useSelector(state => state.favorites.savedSpells);
 
   const { data: spellData, isFetching: fetchingSpells } = useFetchAllSpellsQuery(selectLevel);
 
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
   const renderRow = (index, value) => {
+    const isFavorite = favoriteSpells.find(spell => spell.index === value.index);
+
     return (
       <ListItem key={index} disablePadding>
         <ListItemButton onClick={() => setSelectedSkill(value.index)}>
           <ListItemText primary={value.name} />
         </ListItemButton>
+        {isFavorite && <FavoriteIcon sx={{ color: 'red' }} />}
       </ListItem>
     );
   };

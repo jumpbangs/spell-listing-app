@@ -15,7 +15,7 @@ const FavoriteSpellPage = () => {
         favoriteSpells.map((spell, index) => {
           return (
             <React.Fragment key={index}>
-              <Box mt={2} sx={{ borderRadius: 2 }}>
+              <Box mt={2} mb={5} sx={{ borderRadius: 2 }}>
                 <SpellDetail details={spell} />
                 {index >= 0 && <Divider mb={2} />}
               </Box>
@@ -25,7 +25,7 @@ const FavoriteSpellPage = () => {
       ) : (
         <Box sx={{ height: '60vh' }}>
           <div className="center-content">
-            <h2>No saved favorite list 😔</h2>
+            <h2>No favorite spell saved 😔</h2>
           </div>
         </Box>
       )}

@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import StraightenIcon from '@mui/icons-material/Straighten';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -61,7 +60,7 @@ const SpellDetail = ({ details }) => {
               onChange={handleChange(`panel${index}`)}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                <Typography>{`Description ${index} `}</Typography>
+                <Typography>{`Spell Description ${index + 1} `}</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>{item}</Typography>
@@ -78,14 +77,21 @@ const SpellDetail = ({ details }) => {
       {spellItem?.name && (
         <Card sx={contentStyle}>
           <CardContent>
-            <Typography>{`Spell name: ${spellItem.name}`}</Typography>
-            <Typography>{`Spell Level:${spellItem.level}`}</Typography>
-            <InLineIconText Icon={<StraightenIcon />} Text={`Range: ${spellItem.range} `} />
-            <Typography>{`Spell Duration: ${spellItem?.duration}`}</Typography>
-            <Typography>{`Casting time: ${spellItem?.casting_time}`}</Typography>
-            {attackType && <Typography>{`Attack type: ${spellItem?.attack_type}`}</Typography>}
-            {material && <Typography> {`Material : ${material}`}</Typography>}
-            {description.length > 1 ? renderDescriptionAccordion(description) : <Typography>{description}</Typography>}
+            <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
+            <InLineIconText Title="Spell Level :" Text={`${spellItem.level}`} />
+            <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
+            <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
+            <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
+            {attackType && <InLineIconText Title="Attack type :" Text={`${attackType} `} />}
+            {attackType && <InLineIconText Title="Material :" Text={`${material} `} />}
+            <div>
+              <span className="title">Description :</span>
+              {description.length > 1 ? (
+                renderDescriptionAccordion(description)
+              ) : (
+                <Typography>{description}</Typography>
+              )}
+            </div>
 
             {favoriteSpells.find(spell => spell.index === spellItem.index) ? (
               <>
