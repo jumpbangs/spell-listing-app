@@ -21,7 +21,7 @@ import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from 'redux/service
 const SpellListPage = () => {
   const [selectedSkill, setSelectedSkill] = React.useState('');
   const [selectLevel, setSelectedLevel] = React.useState('All');
-  const favoriteSpells = useSelector(state => state.favorites.savedSpells);
+  const favoriteSpells = useSelector(state => state.favorites?.savedSpells);
 
   const { data: spellData, isFetching: fetchingSpells } = useFetchAllSpellsQuery(selectLevel);
 
@@ -70,10 +70,13 @@ const SpellListPage = () => {
                   sx={{
                     border: 1,
                     marginY: 2,
-                    height: '550px',
                     borderRadius: 2,
                     borderColor: '#B8B5B2',
                     overflow: 'overlay',
+                    height: {
+                      xs: '350px',
+                      md: '550px',
+                    },
                   }}
                 >
                   <Virtuoso

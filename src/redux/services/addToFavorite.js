@@ -10,8 +10,12 @@ export const saveToFavoriteSlice = createSlice({
   reducers: {
     addToFavorite: (state, action) => {
       const spellToAdd = action.payload;
-      const checkIfSpellSaved = state.savedSpells.findIndex(item => item.index === spellToAdd.index);
-      if (checkIfSpellSaved === -1) {
+      if (state.savedSpells.length > 0) {
+        const checkIfSpellSaved = state.savedSpells.findIndex(item => item.index === spellToAdd.index);
+        if (checkIfSpellSaved === -1) {
+          state.savedSpells.push(spellToAdd);
+        }
+      } else {
         state.savedSpells.push(spellToAdd);
       }
     },

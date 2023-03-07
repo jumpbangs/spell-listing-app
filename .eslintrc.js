@@ -44,4 +44,9 @@ module.exports = {
       files: ['src/**/*.js'],
     },
   ],
+  globals: {
+    shallow: true,
+    render: true,
+    mount: true,
+  },
 };

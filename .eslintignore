@@ -7,4 +7,4 @@ public/
 src/models
 .eslintrc.js
 lint-staged.js
-src/App.test.js
+src/test/*

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Menu, AppBar, Button, Toolbar, MenuItem, Container, IconButton, Typography } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,26 +20,12 @@ const NavBar = () => {
   return (
     <AppBar position="static">
       <Container fixed>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters data-testid="navbar">
           {/* Logo  */}
           <AutoFixHighIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            noWrap
-            href={ROUTE_HOME}
-            component="a"
-            variant="h6"
-            sx={{
-              mr: 1,
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-              letterSpacing: '.1rem',
-              fontFamily: 'monospace',
-              display: { xs: 'none', md: 'flex' },
-            }}
-          >
+          <Link to={ROUTE_HOME} pathname={ROUTE_HOME} className="header-text">
             Spell Listing
-          </Typography>
+          </Link>
 
           {/* Menu Contents */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -71,8 +58,10 @@ const NavBar = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button href={ROUTE_FAVORITE}>
-                  <Typography textAlign="center">Favorite</Typography>
+                <Button>
+                  <Link to={ROUTE_FAVORITE} pathname={ROUTE_FAVORITE} style={{ textDecoration: 'none' }}>
+                    Favorites
+                  </Link>
                 </Button>
               </MenuItem>
             </Menu>
@@ -80,32 +69,23 @@ const NavBar = () => {
 
           {/* Logo Responsive */}
           <AutoFixHighIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            href={ROUTE_HOME}
-            noWrap
-            variant="h5"
-            component="a"
-            sx={{
-              mr: 2,
-              flexGrow: 1,
-              fontWeight: 700,
-              color: 'inherit',
-              letterSpacing: '.3rem',
-              textDecoration: 'none',
-              fontFamily: 'monospace',
-              display: { xs: 'flex', md: 'none' },
-            }}
-          >
+          <Link className="header-responsive-text" to={ROUTE_HOME} pathname={ROUTE_HOME}>
             Spell Listing
-          </Typography>
+          </Link>
 
           {/* Left Menu Responsive */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
 
           {/* Right Menu Responsive */}
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-            <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }} href={ROUTE_FAVORITE}>
-              Favorites
+            <Button onClick={handleCloseNavMenu}>
+              <Link
+                to={ROUTE_FAVORITE}
+                pathname={ROUTE_FAVORITE}
+                style={{ marginRight: 8, color: 'white', display: 'block', textDecoration: 'none' }}
+              >
+                Favorites
+              </Link>
             </Button>
           </Box>
         </Toolbar>

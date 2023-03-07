@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import SpellDetail from 'pages/SpellListPage/components/SpellDetails';
 
 const FavoriteSpellPage = () => {
-  const favoriteSpells = useSelector(state => state.favorites.savedSpells);
+  const favoriteSpells = useSelector(state => state.favorites?.savedSpells);
 
   return (
     <Container fixed>

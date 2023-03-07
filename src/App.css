@@ -48,6 +48,12 @@ body {
   justify-content: center;
 }
 
+.center-align-content {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
 .error-box {
   margin-top: 50px;
 }
@@ -63,6 +69,46 @@ body {
   margin-right: 5px;
   font-weight: bold;
   text-transform: capitalize;
+}
+
+.header-text {
+  color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: 16px;
+  font-family: monospace;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+}
+
+.header-responsive-text {
+  flex-grow: 1;
+  color: inherit;
+  font-weight: 700;
+  margin-right: 16px;
+  letter-spacing: 0.3rem;
+  text-decoration: none;
+  font-family: monospace;
+}
+
+@media screen and (min-width: 0px) {
+  .header-responsive-text {
+    display: flex;
+  }
+
+  .header-text {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header-responsive-text {
+    display: none;
+  }
+
+  .header-text {
+    display: flex;
+  }
 }
 
 @keyframes App-logo-spin {
