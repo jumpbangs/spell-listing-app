@@ -9,7 +9,7 @@ const FavoriteSpellPage = () => {
 
   return (
     <Container fixed>
-      <h1>Favorite Spell Page</h1>
+      <h1 style={{ color: 'whitesmoke' }}>Favorite Spell Page</h1>
 
       {favoriteSpells.length > 0 ? (
         favoriteSpells.map((spell, index) => {

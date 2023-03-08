@@ -42,7 +42,7 @@ const SpellListPage = () => {
 
   return (
     <Container fixed>
-      <h1>Spell Listings</h1>
+      <h1 style={{ color: 'whitesmoke' }}>Spell Listings</h1>
       <Grid container spacing={5}>
         <Grid container item xs={12} md={5}>
           <Box

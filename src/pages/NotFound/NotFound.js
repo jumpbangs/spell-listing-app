@@ -9,7 +9,7 @@ const NotFound = () => {
     <div className="center-content">
       <div className="center-align-content">
         <img src={error} alt="Error Image" />
-        <h2>Sorry, the page you have been looking for is not available.</h2>
+        <h2 style={{ color: 'whitesmoke' }}>Sorry, the page you have been looking for is not available.</h2>
         <Link to={ROUTE_HOME}>Go Home</Link>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Menu, AppBar, Button, Toolbar, MenuItem, Container, IconButton, Typography } from '@mui/material';
+import { Box, Menu, AppBar, Button, Toolbar, MenuItem, Container, IconButton } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { ROUTE_HOME, ROUTE_FAVORITE } from 'common/Routes';
