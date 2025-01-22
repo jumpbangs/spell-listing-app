@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    outDir: 'build',
+  },
   server: {
     open: true,
   },
