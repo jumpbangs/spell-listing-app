@@ -8,9 +8,9 @@ import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar } f
 import { ROUTE_FAVORITE, ROUTE_HOME } from 'routes/routes';
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<HTMLButtonElement | null>(null);
 
-  const handleOpenNavMenu = (event: { currentTarget: React.SetStateAction<null> }) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -35,7 +35,7 @@ const NavBar = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={event => handleOpenNavMenu(event)}
               color="inherit"
             >
               <MenuIcon />

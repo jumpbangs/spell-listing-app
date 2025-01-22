@@ -51,9 +51,9 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [
-      "echo 'Running ESLint...' && eslint",
+      "echo 'Running ESLint...' && eslint . --fix",
       "prettier --plugin-search-dir=. --write",
-      "vite build ."
+      "echo 'Building Project' && tsc -b && vite build"
     ],
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
