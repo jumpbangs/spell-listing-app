@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -13,9 +14,9 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { useAppSelector } from 'store/store';
 
 import InLineIconText from 'components/InlineIconText';
+import { useAppSelector } from 'store/store';
 import { SpellTypes } from 'types/spellTypes';
 
 import { addToFavorite, removeFromFavorite } from '../../../services/addToFavourite';
@@ -24,7 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 interface SpellDetailProps {
   details: SpellTypes;
-  isFetching: boolean;
+  isFetching?: boolean;
 }
 
 const SpellDetail = ({ details }: SpellDetailProps) => {

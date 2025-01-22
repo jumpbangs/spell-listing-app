@@ -1,11 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Box,Container, Divider } from '@mui/material';
+
+import { Box, Container } from '@mui/material';
 
 import SpellDetail from 'pages/SpellListPage/components/SpellDetails';
+import { useAppSelector } from 'store/store';
 
 const FavoriteSpellPage = () => {
-  const favoriteSpells = useSelector(state => state.favorites?.savedSpells);
+  const favoriteSpells = useAppSelector(state => state.favorites?.savedSpells);
 
   return (
     <Container fixed>
@@ -17,7 +18,6 @@ const FavoriteSpellPage = () => {
             <React.Fragment key={index}>
               <Box mt={2} mb={5} sx={{ borderRadius: 2 }}>
                 <SpellDetail details={spell} />
-                {index >= 0 && <Divider mb={2} />}
               </Box>
             </React.Fragment>
           );

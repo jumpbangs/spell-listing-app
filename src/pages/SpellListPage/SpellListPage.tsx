@@ -1,23 +1,15 @@
 import React from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Grid,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Skeleton,
-} from '@mui/material';
-import { useAppSelector } from 'store/store';
+import { Box, CircularProgress, Container, ListItem, ListItemButton, ListItemText, Skeleton } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 import Selector from 'components/Selector';
+import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from 'services/fetchSpell';
+import { useAppSelector } from 'store/store';
 import { SpellTypes } from 'types/spellTypes';
-
-import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from '../../services/fetchSpell';
-import { Levels } from '../../utils/constant';
+import { Levels } from 'utils/constant';
 
 import SpellDetail from './components/SpellDetails';
 
@@ -47,7 +39,7 @@ const SpellListPage = () => {
     <Container fixed>
       <h1 style={{ color: 'whitesmoke' }}>Spell Listings</h1>
       <Grid container spacing={5}>
-        <Grid container item xs={12} md={5}>
+        <Grid container size={{ xs: 12, md: 5 }}>
           <Box
             sx={{
               padding: 2,
@@ -58,7 +50,7 @@ const SpellListPage = () => {
               boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
             }}
           >
-            <Grid item md={12} xs={12}>
+            <Grid size={{ md: 12, xs: 12 }}>
               <Selector
                 title="Levels"
                 selectValue={selectLevel}
@@ -66,7 +58,7 @@ const SpellListPage = () => {
                 selectedValue={value => setSelectedLevel(String(value))}
               />
             </Grid>
-            <Grid item md={12} xs={12}>
+            <Grid size={{ md: 12, xs: 12 }}>
               {fetchingSpells ? (
                 <Container>
                   <Box sx={{ display: 'flex' }}>
@@ -97,7 +89,7 @@ const SpellListPage = () => {
             </Grid>
           </Box>
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid size={{ md: 7, xs: 12 }}>
           {isFetching ? (
             <Skeleton variant="rectangular">
               <SpellDetail details={spellDetails} isFetching={true} />

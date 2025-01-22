@@ -6,7 +6,20 @@ import tseslint from 'typescript-eslint';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  {
+    ignores: [
+      'dist',
+      'src/setupTests.ts',
+      'src/reportWebVitals.ts',
+      'node_modules/',
+      'build/',
+      'public/',
+      'src/models',
+      '.eslintrc.js',
+      'lint-staged.js',
+      'src/test/*',
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -46,11 +59,11 @@ export default tseslint.config(
         {
           groups: [
             // Packages `react` related packages come first.
-            ['^react', '^preact', '^@?\\w'],
+            ['^react', '^@?\\w'],
             // Mui packages
-            // ['^@mui'],
+            ['^@mui'],
             // Internal packages.
-            ['^(components|services|pages|features|common|utils|routes|types)(/.*|$)'],
+            ['^(components|services|pages|features|store|utils|routes|types)(/.*|$)'],
             // Internal packages.
             ['^()(/.*|$)'],
             // Side effect imports.

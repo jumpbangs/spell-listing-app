@@ -30,7 +30,8 @@
       "assets/*": ["assets/*"],
       "utils/*": ["utils/*"],
       "store/*": ["store/*"],
-      "types/*": ["types/*"]
+      "types/*": ["types/*"],
+      "services/*": ["services/*"]
     }
   },
   "include": ["src"]
