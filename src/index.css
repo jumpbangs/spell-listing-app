@@ -1,3 +1,125 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+.box {
+  min-height: 100vh;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.main-content {
+  background-color: #868ea7;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-align-content {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.error-box {
+  margin-top: 50px;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  color: black;
+  font-size: 18px;
+  margin-right: 5px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.header-text {
+  color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: 16px;
+  font-family: monospace;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+}
+
+.header-responsive-text {
+  flex-grow: 1;
+  color: inherit;
+  font-weight: 700;
+  margin-right: 16px;
+  letter-spacing: 0.3rem;
+  text-decoration: none;
+  font-family: monospace;
+}
+
+@media screen and (min-width: 0px) {
+  .header-responsive-text {
+    display: flex;
+  }
+
+  .header-text {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header-responsive-text {
+    display: none;
+  }
+
+  .header-text {
+    display: flex;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
