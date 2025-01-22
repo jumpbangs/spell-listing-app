@@ -61,7 +61,7 @@ const SpellListPage = () => {
             <Grid size={{ md: 12, xs: 12 }}>
               {fetchingSpells ? (
                 <Container>
-                  <Box sx={{ display: 'flex' }}>
+                  <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', marginY: '30px' }}>
                     <CircularProgress />
                   </Box>
                 </Container>

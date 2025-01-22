@@ -1,25 +1,15 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Card,
-  CardContent,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import { Box, Card, CardActions, CardContent, Grid2, IconButton, Typography } from '@mui/material';
 
 import InLineIconText from 'components/InlineIconText';
+import { addToFavorite, removeFromFavorite } from 'services/addToFavourite';
 import { useAppSelector } from 'store/store';
-import { SpellTypes } from 'types/spellTypes';
-
-import { addToFavorite, removeFromFavorite } from '../../../services/addToFavourite';
+import { DamageTypes, SpellTypes } from 'types/spellTypes';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,16 +21,11 @@ interface SpellDetailProps {
 const SpellDetail = ({ details }: SpellDetailProps) => {
   const spellItem = details;
   const dispatch = useDispatch();
-  const [expanded, setExpanded] = React.useState<string | false>(false);
   const favoriteSpells = useAppSelector(state => state.favorites.savedSpells);
 
   const attackType = spellItem?.attack_type;
   const material = spellItem?.material;
   const description = spellItem?.desc;
-
-  const handleChange = (panel: string) => () => {
-    setExpanded(expanded === panel ? false : panel);
-  };
 
   const saveSpell = (spellToSave: SpellTypes) => {
     dispatch(addToFavorite(spellToSave));
@@ -79,48 +64,134 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
   const renderDescriptionAccordion = (values: string[]) => {
     return (
       <div className="mt-2">
-        {values.map((item: string, index) => {
-          return (
-            <Accordion
-              key={index}
-              sx={contentStyle}
-              expanded={expanded === `panel${index}`}
-              onChange={handleChange(`panel${index}`)}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                <Typography>{`Spell Description ${index + 1} `}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>{item}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          );
+        {values.map((item: string) => {
+          return <Typography>{item}</Typography>;
         })}
       </div>
     );
   };
 
+  const renderSpellLevelStar = (title: string, level: number) => {
+    const stars = new Array(level).fill(null);
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+        }}
+      >
+        <div className="title-text" style={{ marginRight: '10px' }}>
+          <span className="title">{title}</span>
+          <Typography>{String(level)}</Typography>
+        </div>
+        {stars.map((_, index) => (
+          <StarIcon key={index} color="primary" />
+        ))}
+      </div>
+    );
+  };
+
+  const renderDamageDetails = (value: DamageTypes) => {
+    const damage_name = value.damage_type.name;
+    const damage_slot: { [key: number]: string } = value.damage_at_slot_level;
+
+    return (
+      <Grid2 container spacing={2} marginY="10px">
+        <Grid2 size={4}>
+          <Typography
+            sx={{
+              color: 'black',
+              fontSize: '18px',
+              marginRight: '5px',
+              fontWeight: 'bold',
+              textTransform: 'capitalize',
+            }}
+          >
+            Damage Type:
+          </Typography>
+          <Typography>{damage_name}</Typography>
+        </Grid2>
+        <Grid2 size={8}>
+          <Typography
+            sx={{
+              color: 'black',
+              fontSize: '18px',
+              marginRight: '5px',
+              fontWeight: 'bold',
+              textTransform: 'capitalize',
+            }}
+          >
+            Damage Level:
+          </Typography>
+          {Object.entries(damage_slot).map(([key, value]) => (
+            <div key={key}>
+              <strong>{key}:</strong> {value}
+            </div>
+          ))}
+        </Grid2>
+      </Grid2>
+    );
+  };
   return (
     <>
       {spellItem?.name && (
         <Card sx={contentStyle}>
           <CardContent>
-            <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
-            <InLineIconText Title="Spell Level :" Text={`${spellItem.level}`} />
-            <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
-            <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
-            <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
-            {attackType && <InLineIconText Title="Attack type :" Text={`${attackType} `} />}
-            {attackType && <InLineIconText Title="Material :" Text={`${material} `} />}
+            <Typography gutterBottom variant="h5" component="div">
+              <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
+            </Typography>
+
+            <Grid2 container spacing={2} marginY="10px">
+              <Grid2 size={8}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid2>
+              <Grid2 size={4}>
+                <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
+              </Grid2>
+              <Grid2 size={8}>
+                <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
+              </Grid2>
+              <Grid2 size={4}>
+                <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
+              </Grid2>
+            </Grid2>
+
+            {attackType && (
+              <Box marginY="10px">
+                <InLineIconText Title="Attack type :" Text={`${attackType} `} />
+              </Box>
+            )}
+
+            {material && (
+              <Box marginY="10px">
+                <InLineIconText Title="Material :" Text={`${material} `} />
+              </Box>
+            )}
+
+            {spellItem.damage && renderDamageDetails(spellItem.damage)}
+
+            {spellItem.higher_level[0] && (
+              <Box>
+                <Typography
+                  sx={{
+                    color: 'black',
+                    fontSize: '18px',
+                    marginRight: '5px',
+                    fontWeight: 'bold',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  Higher Level:
+                </Typography>
+                <Typography>{spellItem.higher_level}</Typography>
+              </Box>
+            )}
+
             <div>
               <span className="title">Description :</span>
-              {description.length > 1 ? (
-                renderDescriptionAccordion(description)
-              ) : (
-                <Typography>{description}</Typography>
-              )}
+              {description.length > 0 && renderDescriptionAccordion(description)}
             </div>
-
+          </CardContent>
+          <CardActions>
             {favoriteSpells.find((spell: { index: string }) => spell.index === spellItem.index) ? (
               <>
                 <IconButton onClick={() => removeSpell(spellItem)}>
@@ -134,7 +205,7 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
                 </IconButton>
               </>
             )}
-          </CardContent>
+          </CardActions>
         </Card>
       )}
     </>

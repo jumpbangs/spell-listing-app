@@ -21,7 +21,7 @@ export interface SpellTypes {
   classes: [{ name: string; url: string }];
 }
 
-interface DamageTypes {
+export interface DamageTypes {
   damage_type: {
     name: string;
     url: string;
