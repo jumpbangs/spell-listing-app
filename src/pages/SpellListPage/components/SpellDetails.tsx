@@ -93,12 +93,12 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
   };
 
   const renderDamageDetails = (value: DamageTypes) => {
-    const damage_name = value.damage_type.name;
-    const damage_slot: { [key: number]: string } = value.damage_at_slot_level;
+    const damage_name = value.damage_type?.name || 'Unknown';
+    const damage_slot = value.damage_at_slot_level as { [key: string]: string };
 
     return (
-      <Grid2 container spacing={2} marginY="10px">
-        <Grid2 size={4}>
+      <Grid2 container spacing={2} sx={{ marginY: '10px' }}>
+        <Grid2 size={{ xs: 4 }}>
           <Typography
             sx={{
               color: 'black',
@@ -112,7 +112,7 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
           </Typography>
           <Typography>{damage_name}</Typography>
         </Grid2>
-        <Grid2 size={8}>
+        <Grid2 size={{ xs: 8 }}>
           <Typography
             sx={{
               color: 'black',
@@ -124,15 +124,20 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
           >
             Damage Level:
           </Typography>
-          {Object.entries(damage_slot).map(([key, value]) => (
-            <div key={key}>
-              <strong>{key}:</strong> {value}
-            </div>
-          ))}
+          {damage_slot ? (
+            Object.entries(damage_slot).map(([key, value]) => (
+              <div key={`damage-${key}`}>
+                <strong>{Number(key)}:</strong> {value}
+              </div>
+            ))
+          ) : (
+            <div>No damage slots available</div>
+          )}
         </Grid2>
       </Grid2>
     );
   };
+
   return (
     <>
       {spellItem?.name && (
@@ -141,7 +146,6 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
             <Typography gutterBottom variant="h5" component="div">
               <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
             </Typography>
-
             <Grid2 container spacing={2} marginY="10px">
               <Grid2 size={8}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid2>
               <Grid2 size={4}>
@@ -154,20 +158,18 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
                 <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
               </Grid2>
             </Grid2>
-
             {attackType && (
               <Box marginY="10px">
                 <InLineIconText Title="Attack type :" Text={`${attackType} `} />
               </Box>
             )}
-
             {material && (
               <Box marginY="10px">
                 <InLineIconText Title="Material :" Text={`${material} `} />
               </Box>
             )}
 
-            {spellItem.damage && renderDamageDetails(spellItem.damage)}
+            {spellItem && spellItem?.damage !== undefined && renderDamageDetails(spellItem?.damage)}
 
             {spellItem.higher_level[0] && (
               <Box>
@@ -185,7 +187,6 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
                 <Typography>{spellItem.higher_level}</Typography>
               </Box>
             )}
-
             <div>
               <span className="title">Description :</span>
               {description.length > 0 && renderDescriptionAccordion(description)}

@@ -1,8 +1,18 @@
 import React from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import Fuse from 'fuse.js';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Box, CircularProgress, Container, ListItem, ListItemButton, ListItemText, Skeleton } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Container,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Skeleton,
+  TextField,
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 import Selector from 'components/Selector';
@@ -13,14 +23,35 @@ import { Levels } from 'utils/constant';
 
 import SpellDetail from './components/SpellDetails';
 
+const searchOptions = {
+  includeScore: true,
+  includeMatches: true,
+  threshold: 0.5,
+  keys: ['name', 'index'],
+};
+
 const SpellListPage = () => {
   const [selectedSkill, setSelectedSkill] = React.useState('');
   const [selectLevel, setSelectedLevel] = React.useState('All');
   const favoriteSpells = useAppSelector(state => state.favorites?.savedSpells);
+  const [searchResult, setSearchResult] = React.useState([]);
 
   const { data: spellData, isFetching: fetchingSpells } = useFetchAllSpellsQuery(selectLevel);
 
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
+
+  React.useEffect(() => {
+    if (!isFetching && spellData) {
+      setSearchResult(spellData?.results);
+    }
+  }, [isFetching, spellData]);
+
+  const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const spellDataList = new Fuse(spellData.results, searchOptions);
+    const searchResult = spellDataList.search(event.target.value);
+    const mappedSearchResults = searchResult.map(value => value.item);
+    setSearchResult(mappedSearchResults.length > 0 ? mappedSearchResults : spellData?.results);
+  };
 
   const renderRow = (index: number, value: SpellTypes) => {
     const isFavorite = favoriteSpells.find((spell: SpellTypes) => spell.index === value.index);
@@ -51,13 +82,22 @@ const SpellListPage = () => {
             }}
           >
             <Grid size={{ md: 12, xs: 12 }}>
+              {/* Level Selector */}
               <Selector
                 title="Levels"
                 selectValue={selectLevel}
                 values={Levels}
                 selectedValue={value => setSelectedLevel(String(value))}
               />
+              <TextField
+                variant="outlined"
+                fullWidth
+                sx={{ marginY: '8px' }}
+                label={'Search for Spells'}
+                onChange={handleSearchSpell}
+              />
             </Grid>
+            {/* Spell Listing */}
             <Grid size={{ md: 12, xs: 12 }}>
               {fetchingSpells ? (
                 <Container>
@@ -81,7 +121,7 @@ const SpellListPage = () => {
                 >
                   <Virtuoso
                     style={{ height: '100%' }}
-                    data={spellData?.results}
+                    data={searchResult}
                     itemContent={(index, value) => renderRow(index, value)}
                   />
                 </Box>
@@ -89,6 +129,7 @@ const SpellListPage = () => {
             </Grid>
           </Box>
         </Grid>
+
         <Grid size={{ md: 7, xs: 12 }}>
           {isFetching ? (
             <Skeleton variant="rectangular">

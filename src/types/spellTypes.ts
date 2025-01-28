@@ -13,7 +13,7 @@ export interface SpellTypes {
   concentration: boolean;
   casting_time: boolean;
   attack_type: string;
-  damage: DamageTypes;
+  damage?: DamageTypes;
   school: {
     name: string;
     url: string;
