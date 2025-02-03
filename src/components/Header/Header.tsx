@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 
@@ -86,6 +87,7 @@ const NavBar = () => {
               >
                 Favorites
               </Link>
+              <FavoriteIcon sx={{ color: 'red' }} />
             </Button>
           </Box>
         </Toolbar>

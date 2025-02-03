@@ -2,9 +2,11 @@ import React from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import Fuse from 'fuse.js';
 
+import CasinoIcon from '@mui/icons-material/Casino';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Box,
+  Button,
   CircularProgress,
   Container,
   ListItem,
@@ -44,7 +46,8 @@ const SpellListPage = () => {
     if (!isFetching && spellData) {
       setSearchResult(spellData?.results);
     }
-  }, [isFetching, spellData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
     const spellDataList = new Fuse(spellData.results, searchOptions);
@@ -66,6 +69,14 @@ const SpellListPage = () => {
     );
   };
 
+  const randomSkillSelect = () => {
+    const numberOfSkills = searchResult.length;
+    const randomSkillIndex = Math.floor(Math.random() * Math.floor(numberOfSkills));
+    const selectedRandomSkill = spellData.results[randomSkillIndex].index;
+
+    setSelectedSkill(selectedRandomSkill);
+  };
+
   return (
     <Container fixed>
       <h1 style={{ color: 'whitesmoke' }}>Spell Listings</h1>
@@ -81,14 +92,21 @@ const SpellListPage = () => {
               boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
             }}
           >
-            <Grid size={{ md: 12, xs: 12 }}>
+            <Grid container size={{ md: 12, xs: 12 }} spacing={2}>
               {/* Level Selector */}
-              <Selector
-                title="Levels"
-                selectValue={selectLevel}
-                values={Levels}
-                selectedValue={value => setSelectedLevel(String(value))}
-              />
+              <Grid size={9}>
+                <Selector
+                  title="Levels"
+                  selectValue={selectLevel}
+                  values={Levels}
+                  selectedValue={value => setSelectedLevel(String(value))}
+                />
+              </Grid>
+              <Grid size={3}>
+                <Button onClick={randomSkillSelect}>
+                  <CasinoIcon color="primary" sx={{ fontSize: '40px' }} />
+                </Button>
+              </Grid>
               <TextField
                 variant="outlined"
                 fullWidth

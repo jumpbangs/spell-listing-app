@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { MuiMarkdown } from 'mui-markdown';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -62,11 +63,10 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
   };
 
   const renderDescriptionAccordion = (values: string[]) => {
+    const description = values.join('\n');
     return (
       <div className="mt-2">
-        {values.map((item: string) => {
-          return <Typography>{item}</Typography>;
-        })}
+        <MuiMarkdown>{description}</MuiMarkdown>
       </div>
     );
   };
