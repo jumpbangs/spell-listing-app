@@ -5,7 +5,7 @@ import { MuiMarkdown } from 'mui-markdown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Box, Card, CardActions, CardContent, Grid2, IconButton, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Divider,Grid2, IconButton, Typography } from '@mui/material';
 
 import InLineIconText from 'components/InlineIconText';
 import { addToFavorite, removeFromFavorite } from 'services/addToFavourite';
@@ -83,7 +83,7 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
       >
         <div className="title-text" style={{ marginRight: '10px' }}>
           <span className="title">{title}</span>
-          <Typography>{String(level)}</Typography>
+          <Typography sx={{ textAlign: 'center', fontSize: '18px' }}>{String(level)}</Typography>
         </div>
         {stars.map((_, index) => (
           <StarIcon key={index} color="primary" />
@@ -147,32 +147,41 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
               <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
             </Typography>
             <Grid2 container spacing={2} marginY="10px">
-              <Grid2 size={8}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid2>
-              <Grid2 size={4}>
+              <Grid2 size={{ md: 8, sm: 6 }}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid2>
+              <Grid2 size={{ md: 4, sm: 6 }}>
                 <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
               </Grid2>
-              <Grid2 size={8}>
+              <Grid2 size="grow">
                 <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
               </Grid2>
-              <Grid2 size={4}>
+              <Grid2 size="grow">
                 <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
               </Grid2>
             </Grid2>
-            {attackType && (
-              <Box marginY="10px">
-                <InLineIconText Title="Attack type :" Text={`${attackType} `} />
-              </Box>
-            )}
-            {material && (
-              <Box marginY="10px">
-                <InLineIconText Title="Material :" Text={`${material} `} />
-              </Box>
-            )}
+
+            <Grid2 container spacing={1} marginY="10px">
+              {attackType && (
+                <Grid2 size={10}>
+                  <Box marginY="10px">
+                    <InLineIconText Title="Attack type :" Text={`${attackType} `} />
+                  </Box>
+                </Grid2>
+              )}
+
+              {material && (
+                <Grid2 size={10}>
+                  <Box marginY="10px">
+                    <span className="title">Material :</span>
+                    <Typography>{material}</Typography>
+                  </Box>
+                </Grid2>
+              )}
+            </Grid2>
 
             {spellItem && spellItem?.damage !== undefined && renderDamageDetails(spellItem?.damage)}
-
             {spellItem.higher_level[0] && (
               <Box>
+                <Divider sx={{ marginBottom: '10px' }} />
                 <Typography
                   sx={{
                     color: 'black',
@@ -188,10 +197,12 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
               </Box>
             )}
             <div>
+              <Divider sx={{ paddingY: '10px' }} />
               <span className="title">Description :</span>
               {description.length > 0 && renderDescriptionAccordion(description)}
             </div>
           </CardContent>
+
           <CardActions>
             {favoriteSpells.find((spell: { index: string }) => spell.index === spellItem.index) ? (
               <>

@@ -1,4 +1,4 @@
-# Spell Listing Application
+# 🪄 Spell Listing Application
 
 Simple Spell Card Listing using [D&D 5E API](https://5e-bits.github.io/docs/api). The following project showcases the usage of Material UI, Redux and React to fetch and render spells. 
 

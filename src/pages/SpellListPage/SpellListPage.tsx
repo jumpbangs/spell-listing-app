@@ -2,7 +2,7 @@ import React from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import Fuse from 'fuse.js';
 
-import CasinoIcon from '@mui/icons-material/Casino';
+import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Box,
@@ -43,11 +43,10 @@ const SpellListPage = () => {
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
   React.useEffect(() => {
-    if (!isFetching && spellData) {
+    if (spellData) {
       setSearchResult(spellData?.results);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [spellData]);
 
   const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
     const spellDataList = new Fuse(spellData.results, searchOptions);
@@ -104,7 +103,12 @@ const SpellListPage = () => {
               </Grid>
               <Grid size={3}>
                 <Button onClick={randomSkillSelect}>
-                  <CasinoIcon color="primary" sx={{ fontSize: '40px' }} />
+                  <CasinoRoundedIcon
+                    sx={{
+                      fontSize: '40px',
+                      color: 'red',
+                    }}
+                  />
                 </Button>
               </Grid>
               <TextField

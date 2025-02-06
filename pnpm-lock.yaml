@@ -14,6 +14,12 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
+      '@fontsource/ubuntu':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource/ubuntu-mono':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@mui/icons-material':
         specifier: ^6.4.0
         version: 6.4.0(@mui/material@6.4.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -407,6 +413,12 @@ packages:
   '@eslint/plugin-kit@0.2.5':
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource/ubuntu-mono@5.1.1':
+    resolution: {integrity: sha512-R81WHFRcm8R78u24PehYiHsRTTth6ZRbA1nKKhKYnvqW92J7BNbH7NETwEPmxFlTLM3rGnqfoP1tvBczBeWRpg==}
+
+  '@fontsource/ubuntu@5.1.1':
+    resolution: {integrity: sha512-ghyIHIsqbBkUMA3zjvCIQENHl4CEhNgKrVxsuuC46XKw5Yfiy4C3W/A0eLGBR4+yre39b/1sVVsjK6VByVMAtg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1995,6 +2007,10 @@ snapshots:
     dependencies:
       '@eslint/core': 0.10.0
       levn: 0.4.1
+
+  '@fontsource/ubuntu-mono@5.1.1': {}
+
+  '@fontsource/ubuntu@5.1.1': {}
 
   '@humanfs/core@0.19.1': {}
 

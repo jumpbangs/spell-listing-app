@@ -38,10 +38,6 @@ body {
   color: #61dafb;
 }
 
-.main-content {
-  background-color: #868ea7;
-}
-
 .center-content {
   display: flex;
   align-items: center;
@@ -130,4 +126,9 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.center-content > h2 {
+  color: white;
+  font-size: 34px;
 }
