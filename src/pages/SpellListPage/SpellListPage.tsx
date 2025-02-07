@@ -43,9 +43,10 @@ const SpellListPage = () => {
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
   React.useEffect(() => {
-    if (spellData && !isFetching) {
+    if (!isFetching && spellData) {
       setSearchResult(spellData?.results);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
