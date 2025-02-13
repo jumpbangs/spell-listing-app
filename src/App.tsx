@@ -11,7 +11,9 @@ const App = () => {
       <ToastContainer />
       <ErrorBoundary>
         <Header />
-        <Navigation />
+        <div style={{ minHeight: 'auto', width: '100%' }}>
+          <Navigation />
+        </div>
         <Footer />
       </ErrorBoundary>
     </div>

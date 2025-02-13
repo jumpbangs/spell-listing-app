@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { MuiMarkdown } from 'mui-markdown';
@@ -5,7 +6,7 @@ import { MuiMarkdown } from 'mui-markdown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Box, Card, CardActions, CardContent, Divider,Grid2, IconButton, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Divider, Grid2, IconButton, Typography } from '@mui/material';
 
 import InLineIconText from 'components/InlineIconText';
 import { addToFavorite, removeFromFavorite } from 'services/addToFavourite';
@@ -151,10 +152,10 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
               <Grid2 size={{ md: 4, sm: 6 }}>
                 <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
               </Grid2>
-              <Grid2 size="grow">
+              <Grid2 size={{ md: 'grow', sm: 6 }}>
                 <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
               </Grid2>
-              <Grid2 size="grow">
+              <Grid2 size={{ md: 'grow', sm: 6 }}>
                 <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
               </Grid2>
             </Grid2>

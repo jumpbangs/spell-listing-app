@@ -33,6 +33,8 @@ const searchOptions = {
 };
 
 const SpellListPage = () => {
+  const spellRef = React.useRef<HTMLDivElement | null>(null);
+
   const [selectedSkill, setSelectedSkill] = React.useState('');
   const [selectLevel, setSelectedLevel] = React.useState('All');
   const favoriteSpells = useAppSelector(state => state.favorites?.savedSpells);
@@ -43,11 +45,17 @@ const SpellListPage = () => {
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
   React.useEffect(() => {
-    if (!isFetching && spellData) {
+    if (!fetchingSpells && spellData) {
       setSearchResult(spellData?.results);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (spellDetails && isMobile && spellRef.current) {
+      spellRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [spellDetails]);
 
   const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
     const spellDataList = new Fuse(spellData.results, searchOptions);
@@ -82,78 +90,80 @@ const SpellListPage = () => {
       <h1 style={{ color: 'whitesmoke' }}>Spell Listings</h1>
       <Grid container spacing={5}>
         <Grid container size={{ xs: 12, md: 5 }}>
-          <Box
-            sx={{
-              padding: 2,
-              marginY: 2,
-              width: '100%',
-              borderRadius: 4,
-              backgroundColor: '#EFECE7',
-              boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
-            }}
-          >
-            <Grid container size={{ md: 12, xs: 12 }} spacing={2}>
-              {/* Level Selector */}
-              <Grid size={9}>
-                <Selector
-                  title="Levels"
-                  selectValue={selectLevel}
-                  values={Levels}
-                  selectedValue={value => setSelectedLevel(String(value))}
+          <div style={{ minHeight: '50vh', width: '100%' }}>
+            <Box
+              sx={{
+                padding: 2,
+                marginY: 2,
+                width: '100%',
+                borderRadius: 4,
+                backgroundColor: '#EFECE7',
+                boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
+              }}
+            >
+              <Grid container size={{ md: 12, xs: 12 }} spacing={2}>
+                {/* Level Selector */}
+                <Grid size={9}>
+                  <Selector
+                    title="Levels"
+                    selectValue={selectLevel}
+                    values={Levels}
+                    selectedValue={value => setSelectedLevel(String(value))}
+                  />
+                </Grid>
+                <Grid size={3}>
+                  <Button onClick={randomSkillSelect}>
+                    <CasinoRoundedIcon
+                      sx={{
+                        fontSize: '40px',
+                        color: 'red',
+                      }}
+                    />
+                  </Button>
+                </Grid>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  sx={{ marginY: '8px' }}
+                  label={'Search for Spells'}
+                  onChange={handleSearchSpell}
                 />
               </Grid>
-              <Grid size={3}>
-                <Button onClick={randomSkillSelect}>
-                  <CasinoRoundedIcon
+              {/* Spell Listing */}
+              <Grid size={{ md: 12, xs: 12 }}>
+                {fetchingSpells ? (
+                  <Container>
+                    <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', marginY: '30px' }}>
+                      <CircularProgress />
+                    </Box>
+                  </Container>
+                ) : (
+                  <Box
                     sx={{
-                      fontSize: '40px',
-                      color: 'red',
+                      border: 1,
+                      marginY: 2,
+                      borderRadius: 2,
+                      borderColor: '#B8B5B2',
+                      overflow: 'overlay',
+                      height: {
+                        xs: '350px',
+                        md: '550px',
+                      },
                     }}
-                  />
-                </Button>
-              </Grid>
-              <TextField
-                variant="outlined"
-                fullWidth
-                sx={{ marginY: '8px' }}
-                label={'Search for Spells'}
-                onChange={handleSearchSpell}
-              />
-            </Grid>
-            {/* Spell Listing */}
-            <Grid size={{ md: 12, xs: 12 }}>
-              {fetchingSpells ? (
-                <Container>
-                  <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', marginY: '30px' }}>
-                    <CircularProgress />
+                  >
+                    <Virtuoso
+                      style={{ height: '100%' }}
+                      data={searchResult}
+                      itemContent={(index, value) => renderRow(index, value)}
+                    />
                   </Box>
-                </Container>
-              ) : (
-                <Box
-                  sx={{
-                    border: 1,
-                    marginY: 2,
-                    borderRadius: 2,
-                    borderColor: '#B8B5B2',
-                    overflow: 'overlay',
-                    height: {
-                      xs: '350px',
-                      md: '550px',
-                    },
-                  }}
-                >
-                  <Virtuoso
-                    style={{ height: '100%' }}
-                    data={searchResult}
-                    itemContent={(index, value) => renderRow(index, value)}
-                  />
-                </Box>
-              )}
-            </Grid>
-          </Box>
+                )}
+              </Grid>
+            </Box>
+          </div>
         </Grid>
 
-        <Grid size={{ md: 7, xs: 12 }}>
+        <Grid size={{ md: 7, xs: 12 }} ref={spellRef}>
           {isFetching ? (
             <Skeleton variant="rectangular">
               <SpellDetail details={spellDetails} isFetching={true} />
