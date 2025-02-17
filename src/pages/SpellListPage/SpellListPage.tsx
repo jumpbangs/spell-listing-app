@@ -45,10 +45,10 @@ const SpellListPage = () => {
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
   React.useEffect(() => {
-    if (!fetchingSpells && spellData) {
+    if (spellData) {
       setSearchResult(spellData?.results);
     }
-  }, []);
+  }, [spellData]);
 
   React.useEffect(() => {
     const isMobile = window.innerWidth < 768;
