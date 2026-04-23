@@ -14,6 +14,9 @@ export default defineConfig({
     open: true,
   },
   plugins: [react()],
+  optimizeDeps: {
+    include: ['redux-persist/lib/storage', 'redux-persist/lib/storage/createWebStorage'],
+  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),

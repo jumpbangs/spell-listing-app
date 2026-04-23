@@ -15,7 +15,7 @@ import {
   Skeleton,
   TextField,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 
 import Selector from 'components/Selector';
 import { useFetchAllSpellsQuery, useFetchSpellByIndexQuery } from 'services/fetchSpell';
@@ -38,17 +38,54 @@ const SpellListPage = () => {
   const [selectedSkill, setSelectedSkill] = React.useState('');
   const [selectLevel, setSelectedLevel] = React.useState('All');
   const favoriteSpells = useAppSelector(state => state.favorites?.savedSpells);
-  const [searchResult, setSearchResult] = React.useState([]);
 
   const { data: spellData, isFetching: fetchingSpells } = useFetchAllSpellsQuery(selectLevel);
 
   const { data: spellDetails, isFetching } = useFetchSpellByIndexQuery(selectedSkill);
 
-  React.useEffect(() => {
-    if (spellData) {
-      setSearchResult(spellData?.results);
-    }
+  const fuseIndex = React.useMemo(() => {
+    if (spellData?.results) return null;
+    return new Fuse(spellData?.results, searchOptions);
   }, [spellData]);
+
+  const [searchInput, setSearchInput] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  React.useEffect(() => {
+    const t = setTimeout(() => setSearchQuery(searchInput), 150);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
+  // Memoize filter result using the prebuilt index
+  const searchResult = React.useMemo(() => {
+    const results = spellData?.results ?? [];
+    if (!searchQuery.trim() || !fuseIndex) return results;
+    const matches = fuseIndex.search(searchQuery).map(v => v.item);
+    return matches.length > 0 ? matches : results;
+  }, [spellData, searchQuery, fuseIndex]);
+
+  // Favorites lookup in O(1)
+  const favoriteSet = React.useMemo(() => new Set(favoriteSpells.map(s => s.index)), [favoriteSpells]);
+
+  const renderRow = React.useCallback(
+    (_index: number, value: SpellTypes) => {
+      const isFavorite = favoriteSet.has(value.index);
+      return (
+        <ListItem key={value.index} disablePadding>
+          <ListItemButton onClick={() => setSelectedSkill(value.index)}>
+            <ListItemText primary={value.name} />
+          </ListItemButton>
+          {isFavorite && <FavoriteIcon sx={{ color: 'red' }} />}
+        </ListItem>
+      );
+    },
+    [favoriteSet],
+  );
+
+  // Simplified handler — just updates the input
+  const handleSearchSpell = (event: { target: { value: React.SetStateAction<string> } }) => {
+    setSearchInput(event.target.value);
+  };
 
   React.useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -56,26 +93,6 @@ const SpellListPage = () => {
       spellRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [spellDetails]);
-
-  const handleSearchSpell = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const spellDataList = new Fuse(spellData.results, searchOptions);
-    const searchResult = spellDataList.search(event.target.value);
-    const mappedSearchResults = searchResult.map(value => value.item);
-    setSearchResult(mappedSearchResults.length > 0 ? mappedSearchResults : spellData?.results);
-  };
-
-  const renderRow = (index: number, value: SpellTypes) => {
-    const isFavorite = favoriteSpells.find((spell: SpellTypes) => spell.index === value.index);
-
-    return (
-      <ListItem key={index} disablePadding>
-        <ListItemButton onClick={() => setSelectedSkill(value.index)}>
-          <ListItemText primary={value.name} />
-        </ListItemButton>
-        {isFavorite && <FavoriteIcon sx={{ color: 'red' }} />}
-      </ListItem>
-    );
-  };
 
   const randomSkillSelect = () => {
     const numberOfSkills = searchResult.length;
