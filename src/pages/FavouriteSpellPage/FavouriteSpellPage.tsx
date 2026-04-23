@@ -16,7 +16,7 @@ const FavoriteSpellPage = () => {
         favoriteSpells.map((spell, index) => {
           return (
             <React.Fragment key={index}>
-              <Box mt={2} mb={5} sx={{ borderRadius: 2 }}>
+              <Box sx={{ borderRadius: 2, marginTop: 2, marginBottom: 5 }}>
                 <SpellDetail details={spell} />
               </Box>
             </React.Fragment>

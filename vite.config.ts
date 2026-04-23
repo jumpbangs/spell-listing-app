@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react-swc';
 import path, { dirname } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 
@@ -9,11 +10,32 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   build: {
     outDir: 'build',
+    rolldownOptions: {
+      output: {
+        manualChunks: id => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') || id.includes('react-router') || id.match(/[\\/]react[\\/]/)) {
+              return 'react-vendor';
+            }
+            if (id.includes('@mui') || id.includes('@emotion')) {
+              return 'mui';
+            }
+            if (id.includes('@reduxjs') || id.includes('redux') || id.includes('immer') || id.includes('reselect')) {
+              return 'redux';
+            }
+            if (id.includes('fuse.js') || id.includes('react-virtuoso') || id.includes('react-toastify')) {
+              return 'utils';
+            }
+            return 'vendor'; // everything else from node_modules
+          }
+        },
+      },
+    },
   },
   server: {
     open: true,
   },
-  plugins: [react()],
+  plugins: [react(), visualizer({ open: true, gzipSize: true, brotliSize: true })],
   optimizeDeps: {
     include: ['redux-persist/lib/storage', 'redux-persist/lib/storage/createWebStorage'],
   },

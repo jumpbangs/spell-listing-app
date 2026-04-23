@@ -1,19 +1,23 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { CircularProgress } from '@mui/material';
+
 import FavoriteSpellPage from 'pages/FavouriteSpellPage';
-import NotFound from 'pages/NotFound';
-import SpellListPage from 'pages/SpellListPage/SpellListPage';
 import { ROUTE_FAVORITE, ROUTE_HOME } from 'routes/routes';
+
+const SpellListPageLazy = lazy(() => import('pages/SpellListPage'));
+const NoFoundLazy = lazy(() => import('pages/NotFound'));
 
 const Navigation = () => {
   return (
-    <div>
+    <Suspense fallback={<CircularProgress />}>
       <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path={ROUTE_HOME} element={<SpellListPage />} />
+        <Route path="*" element={<NoFoundLazy />} />
+        <Route path={ROUTE_HOME} element={<SpellListPageLazy />} />
         <Route path={ROUTE_FAVORITE} element={<FavoriteSpellPage />} />
       </Routes>
-    </div>
+    </Suspense>
   );
 };
 
