@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { SpellTypes } from '../types/spellTypes';
+import { SpellTypes } from 'types/spellTypes';
 
 interface initialStateProps {
   savedSpells: SpellTypes[];

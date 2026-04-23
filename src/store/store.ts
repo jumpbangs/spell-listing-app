@@ -4,8 +4,8 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import createWebStorageImport from 'redux-persist/lib/storage/createWebStorage';
 
-import favoriteReducer from '../services/addToFavourite';
-import { spellApi } from '../services/fetchSpell';
+import favoriteReducer from 'services/addToFavourite';
+import { spellApi } from 'services/fetchSpell';
 
 const createWebStorage =
   (createWebStorageImport as unknown as { default?: typeof createWebStorageImport }).default ?? createWebStorageImport;
