@@ -5,7 +5,7 @@ import { MuiMarkdown } from 'mui-markdown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Box, Card, CardActions, CardContent, Divider, Grid2, IconButton, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Divider, Grid, IconButton, Typography } from '@mui/material';
 
 import InLineIconText from 'components/InlineIconText';
 import { addToFavorite, removeFromFavorite } from 'services/addToFavourite';
@@ -97,8 +97,8 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
     const damage_slot = value.damage_at_slot_level as { [key: string]: string };
 
     return (
-      <Grid2 container spacing={2} sx={{ marginY: '10px' }}>
-        <Grid2 size={{ xs: 4 }}>
+      <Grid container spacing={2} sx={{ marginY: '10px' }}>
+        <Grid size={{ xs: 4 }}>
           <Typography
             sx={{
               color: 'black',
@@ -111,8 +111,8 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
             Damage Type:
           </Typography>
           <Typography>{damage_name}</Typography>
-        </Grid2>
-        <Grid2 size={{ xs: 8 }}>
+        </Grid>
+        <Grid size={{ xs: 8 }}>
           <Typography
             sx={{
               color: 'black',
@@ -133,8 +133,8 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
           ) : (
             <div>No damage slots available</div>
           )}
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -146,37 +146,37 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
             <Typography gutterBottom variant="h5" component="div">
               <InLineIconText Title="Spell name :" Text={`${spellItem.name}`} />
             </Typography>
-            <Grid2 container spacing={2} marginY="10px">
-              <Grid2 size={{ md: 8, sm: 6 }}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid2>
-              <Grid2 size={{ md: 4, sm: 6 }}>
+            <Grid container spacing={2} sx={{ my: '10px' }}>
+              <Grid size={{ md: 8, sm: 6 }}>{renderSpellLevelStar('Spell Level :', spellItem.level)}</Grid>
+              <Grid size={{ md: 4, sm: 6 }}>
                 <InLineIconText Title="Range :" Text={`${spellItem.range} `} />
-              </Grid2>
-              <Grid2 size={{ md: 'grow', sm: 6 }}>
+              </Grid>
+              <Grid size={{ md: 'grow', sm: 6 }}>
                 <InLineIconText Title="Spell Duration :" Text={`${spellItem.duration} `} />
-              </Grid2>
-              <Grid2 size={{ md: 'grow', sm: 6 }}>
+              </Grid>
+              <Grid size={{ md: 'grow', sm: 6 }}>
                 <InLineIconText Title="Casting time :" Text={`${spellItem?.casting_time} `} />
-              </Grid2>
-            </Grid2>
+              </Grid>
+            </Grid>
 
-            <Grid2 container spacing={1} marginY="10px">
+            <Grid container spacing={1} sx={{ my: '10px' }}>
               {attackType && (
-                <Grid2 size={10}>
-                  <Box marginY="10px">
+                <Grid size={10}>
+                  <Box sx={{ my: '10px' }}>
                     <InLineIconText Title="Attack type :" Text={`${attackType} `} />
                   </Box>
-                </Grid2>
+                </Grid>
               )}
 
               {material && (
-                <Grid2 size={10}>
-                  <Box marginY="10px">
+                <Grid size={10}>
+                  <Box sx={{ my: '10px' }}>
                     <span className="title">Material :</span>
                     <Typography>{material}</Typography>
                   </Box>
-                </Grid2>
+                </Grid>
               )}
-            </Grid2>
+            </Grid>
 
             {spellItem && spellItem?.damage !== undefined && renderDamageDetails(spellItem?.damage)}
             {spellItem.higher_level[0] && (

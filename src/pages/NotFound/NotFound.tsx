@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import error from 'assets/images/error-404.png';
 
-import { ROUTE_HOME } from '../../routes/routes';
+import { ROUTE_HOME } from 'routes/routes';
 
 const NotFound = () => {
   return (
