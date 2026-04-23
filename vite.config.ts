@@ -7,9 +7,9 @@ import { defineConfig } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   build: {
-    outDir: 'build',
+    outDir: 'dist',
     rolldownOptions: {
       output: {
         manualChunks: id => {
@@ -35,7 +35,9 @@ export default defineConfig({
   server: {
     open: true,
   },
-  plugins: [react(), visualizer({ open: true, gzipSize: true, brotliSize: true })],
+  plugins: [react(), mode === 'analyze' && visualizer({ open: true, gzipSize: true, brotliSize: true })].filter(
+    Boolean
+  ),
   optimizeDeps: {
     include: ['redux-persist/lib/storage', 'redux-persist/lib/storage/createWebStorage'],
   },
@@ -51,4 +53,4 @@ export default defineConfig({
       services: path.resolve(__dirname, './src/services'),
     },
   },
-});
+}));

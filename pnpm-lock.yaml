@@ -75,9 +75,6 @@ importers:
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.1)
-      '@types/node':
-        specifier: ^25.6.0
-        version: 25.6.0
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -2902,6 +2899,7 @@ snapshots:
   '@types/node@25.6.0':
     dependencies:
       undici-types: 7.19.2
+    optional: true
 
   '@types/parse-json@4.0.2': {}
 
@@ -4209,7 +4207,8 @@ snapshots:
   ufo@1.6.3:
     optional: true
 
-  undici-types@7.19.2: {}
+  undici-types@7.19.2:
+    optional: true
 
   update-browserslist-db@1.2.3(browserslist@4.28.2):
     dependencies:

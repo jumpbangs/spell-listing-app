@@ -12,6 +12,7 @@
     "lint-staged": "lint-staged",
     "typecheck": "tsc -b --noEmit",
     "prepush": "pnpm typecheck && pnpm build",
+    "analyze": "tsc -b && vite build --mode analyze",
     "prettify": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
@@ -39,7 +40,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.3.0",
