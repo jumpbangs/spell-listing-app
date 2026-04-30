@@ -6,8 +6,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 
+import ThemeToggle from 'components/ThemeToggle';
 import { ROUTE_FAVORITE, ROUTE_HOME } from 'routes/routes';
-
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<HTMLButtonElement | null>(null);
 
@@ -89,6 +89,7 @@ const NavBar = () => {
               </Link>
               <FavoriteIcon sx={{ color: 'red' }} />
             </Button>
+            <ThemeToggle />
           </Box>
         </Toolbar>
       </Container>

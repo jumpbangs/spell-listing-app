@@ -3,7 +3,7 @@ import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } fro
 interface SelectorProps {
   values: string[];
   title: string;
-  // eslint-disable-next-line no-unused-vars
+
   selectedValue: (value: string | number) => void;
   selectValue: string | number;
 }

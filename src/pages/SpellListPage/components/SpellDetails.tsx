@@ -5,7 +5,7 @@ import { MuiMarkdown } from 'mui-markdown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Box, Card, CardActions, CardContent, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Divider, Grid, IconButton, Typography, useTheme } from '@mui/material';
 
 import InLineIconText from 'components/InlineIconText';
 import { addToFavorite, removeFromFavorite } from 'services/addToFavourite';
@@ -20,6 +20,7 @@ interface SpellDetailProps {
 }
 
 const SpellDetail = ({ details }: SpellDetailProps) => {
+  const theme = useTheme();
   const spellItem = details;
   const dispatch = useDispatch();
   const favoriteSpells = useAppSelector(state => state.favorites.savedSpells);
@@ -58,7 +59,7 @@ const SpellDetail = ({ details }: SpellDetailProps) => {
     border: 1,
     borderRadius: 2,
     borderColor: '#B8B5B2',
-    backgroundColor: '#EFECE7',
+    backgroundColor: theme.palette.background.paper,
     boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
   };
 

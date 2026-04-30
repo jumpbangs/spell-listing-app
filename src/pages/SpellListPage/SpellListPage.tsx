@@ -14,6 +14,7 @@ import {
   ListItemText,
   Skeleton,
   TextField,
+  useTheme,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
@@ -33,6 +34,7 @@ const searchOptions = {
 };
 
 const SpellListPage = () => {
+  const theme = useTheme();
   const spellRef = React.useRef<HTMLDivElement | null>(null);
 
   const [selectedSkill, setSelectedSkill] = React.useState('');
@@ -79,7 +81,7 @@ const SpellListPage = () => {
         </ListItem>
       );
     },
-    [favoriteSet],
+    [favoriteSet]
   );
 
   // Simplified handler — just updates the input
@@ -104,7 +106,7 @@ const SpellListPage = () => {
 
   return (
     <Container fixed>
-      <h1 style={{ color: 'whitesmoke' }}>Spell Listings</h1>
+      <h1>Spell Listings</h1>
       <Grid container spacing={5}>
         <Grid container size={{ xs: 12, md: 5 }}>
           <div style={{ minHeight: '50vh', width: '100%' }}>
@@ -114,7 +116,7 @@ const SpellListPage = () => {
                 marginY: 2,
                 width: '100%',
                 borderRadius: 4,
-                backgroundColor: '#EFECE7',
+                backgroundColor: theme.palette.background.paper,
                 boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
               }}
             >

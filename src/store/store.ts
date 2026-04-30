@@ -7,12 +7,15 @@ import createWebStorageImport from 'redux-persist/lib/storage/createWebStorage';
 import favoriteReducer from 'services/addToFavourite';
 import { spellApi } from 'services/fetchSpell';
 
+import themeReducer from './themeSlice';
+
 const createWebStorage =
   (createWebStorageImport as unknown as { default?: typeof createWebStorageImport }).default ?? createWebStorageImport;
 const storage = createWebStorage('local');
 // Combine reducers
 const reducers = combineReducers({
   favorites: favoriteReducer,
+  theme: themeReducer,
   [spellApi.reducerPath]: spellApi.reducer,
 });
 
