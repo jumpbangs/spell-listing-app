@@ -13,7 +13,7 @@ const ThemeToggle = () => {
   return (
     <>
       <IconButton onClick={() => dispatch(toggleTheme())}>
-        {mode === 'light' ? <DarkModeOutlined sx={{ color: '#FFF' }} /> : <WbSunnyOutlined sx={{ color: '#FFF' }} />}
+        {mode === 'light' ? <DarkModeOutlined sx={{ color: '#FFF' }} /> : <WbSunnyOutlined sx={{ color: '#FFC000' }} />}
       </IconButton>
     </>
   );
